@@ -5,13 +5,22 @@ import java.util.List;
 import java.util.Optional;
 
 public class Cart {
+	
+	//Create a class variable for Cart. An arraylist that holds the cart items.
+		private List<CartLine> cartLineList = new ArrayList<>();
+		
+		//Creating a Constructor for Cart
+		public Cart()
+		{
+		}
 
     /**
      *
      * @return the actual cartline list
      */
-    public List<CartLine> getCartLineList() {
-        return new ArrayList<>();
+	public List<CartLine> getCartLineList() 
+    {
+        return cartLineList;
     }
 
     /**
@@ -20,7 +29,17 @@ public class Cart {
      * @param quantity the quantity
      */
     public void addItem(Product product, int quantity) {
-        // TODO implement the method
+        // Searches list of the cartlinelist object and updates the quantity to the product in arguement.
+       	for (CartLine item : getCartLineList())
+    	{
+    		if (item.getProduct().equals(product))
+    		{
+    			item.setQuantity(quantity + item.getQuantity());
+    			return;
+    		}
+    	}
+    	//add new cartline object if the item is currently not in cart.
+    	getCartLineList().add(new CartLine(product,quantity));
     }
 
     /**
@@ -37,18 +56,29 @@ public class Cart {
      */
     public double getTotalValue()
     {
-         //TODO implement the method
-        return 0.0;
+        //Gets the subtotal of all cartline objects in getcartlinelist, then sums them for total value.
+   	double totalvalue = 0.0;
+   	for (CartLine item : getCartLineList())
+   	{
+   		totalvalue += item.getSubtotal();
+   	}
+   	return totalvalue;
 
-    }
+   }
 
     /**
      * @return Get average value of a cart
      */
     public double getAverageValue()
     {
-        // TODO implement the method
-        return 0.0;
+    	int count = 0;
+    	double averageValue = 0.0;
+    	for  (CartLine item : getCartLineList())
+    	{
+    		count += item.getQuantity();
+    	}
+    	averageValue = getTotalValue() / count; 
+    	return averageValue;
     }
 
     /**
@@ -57,8 +87,15 @@ public class Cart {
      */
     public Product findProductInCartLines(Long productId)
     {
-        // TODO implement the method
-        return null;
+        // Searches the cartLineList object for that product that matches the productID in arguement. 
+    	for (CartLine item : getCartLineList())
+    	{
+    		if (item.getProduct().getId().equals(productId))
+    		{
+    	    	return item.getProduct();
+    		}
+    	}
+		return null;
     }
 
     /**

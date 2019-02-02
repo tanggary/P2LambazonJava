@@ -29,10 +29,8 @@ public class ProductService {
 	/**
 	 * @return all products from the inventory
 	 */
-	public Product[] getAllProducts() {
+	public List<Product> getAllProducts() {
 
-		// TODO change the return type from array to List<T> and propagate the change
-		// throughout the application
 		return productRepository.findAll();
 	}
 
@@ -43,7 +41,20 @@ public class ProductService {
 	 */
 	public Product getProductById(Long productId)
 	{
-		// TODO implement the method
+		//Returns the product that matches with productID arguement provided.
+		//Searches through the list, and only returning the product with that matching ID.
+		for (Product item : productRepository.findAll())
+		{
+			if (item.getId().equals(productId))
+			{
+				return item;
+			}
+			else
+			{
+				continue;
+			}
+
+		}
 		return null;
 
 	}
@@ -54,7 +65,16 @@ public class ProductService {
 	 */
 	public void updateProductQuantities(Long productId, int quantity)
 	{
-
-		// TODO implement the method
+		//Updated product in the productrepository if only it matches the productID of the arguement.
+		for (Product item : productRepository.findAll())
+			if (item.getId().equals(productId))
+			{
+				item.setStock(item.getStock() - quantity);
+				//System.out.println("Item: " + item + " stock is now: " + item.getStock());
+			}
+			else 
+			{
+				continue;
+			}
 	}
 }

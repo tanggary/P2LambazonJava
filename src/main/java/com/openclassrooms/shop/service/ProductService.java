@@ -49,14 +49,8 @@ public class ProductService {
 			{
 				return item;
 			}
-			else
-			{
-				continue;
-			}
-
 		}
 		return null;
-
 	}
 
 	/**
@@ -71,10 +65,6 @@ public class ProductService {
 			{
 				item.setStock(item.getStock() - quantity);
 				//System.out.println("Item: " + item + " stock is now: " + item.getStock());
-			}
-			else 
-			{
-				continue;
 			}
 	}
 }

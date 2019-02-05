@@ -71,8 +71,13 @@ public class Cart {
      */
     public double getAverageValue()
     {
-
-    	return getTotalValue() / (getCartLineList().size() + 1);
+    	int count = 0;
+    	for (CartLine item : getCartLineList())
+    	{
+    		count += item.getQuantity();
+    	}
+    	
+      	return getTotalValue() / count;	
     }
 
     /**
